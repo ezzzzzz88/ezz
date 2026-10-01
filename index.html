@@ -159,6 +159,9 @@
   .stack-list .tag{ font-size:.78rem; padding:6px 12px; }
 
   /* ---- contact / footer ---- */
+  .about{ color: var(--muted); max-width: 60ch; margin: 0 0 16px; font-size: 1.02rem; }
+  .about:last-child{ margin-bottom: 0; }
+  .about-block{ margin-bottom: clamp(56px, 11vh, 100px); }
   .contact p{ color: var(--muted); max-width: 48ch; }
   .links{ display:flex; flex-wrap:wrap; gap:14px; margin-top: 18px; }
   .btn{
@@ -200,44 +203,15 @@
 <main class="wrap">
   <header class="hero">
     <p class="eyebrow">ezzzzzz88 · web developer</p>
-    <h1>I build games and tools for the web.</h1>
-    <p class="lede">Self-taught developer working mostly in JavaScript and TypeScript — browser games, video tooling, and the occasional over-engineered side project.</p>
-    <p class="sub">Everything here is something I actually shipped, not a tutorial clone.</p>
+    <h1>I build things for the web.</h1>
+    <p class="lede">Self-taught developer. I've spent the last three years deep in the JavaScript ecosystem, building web apps and front-end interfaces.</p>
+    <p class="sub">Always building something — this is my corner of the web.</p>
   </header>
 
-  <section>
-    <p class="section-label">Projects</p>
-    <div class="projects">
-
-      <a class="card" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">
-        <div class="card-top">
-          <h3>Arcade</h3>
-          <span class="arrow">↗</span>
-        </div>
-        <p>A browser games platform hosting two dozen original HTML5 games — arcade classics plus casino-style mini-games — served through a custom static build pipeline written in Node. Each game is self-contained Canvas/JS with shared tooling for thumbnails, config, and deployment.</p>
-        <div class="tags">
-          <span class="tag">JavaScript</span>
-          <span class="tag">Canvas</span>
-          <span class="tag">Node build</span>
-          <span class="tag">Vercel</span>
-        </div>
-      </a>
-
-      <a class="card" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">
-        <div class="card-top">
-          <h3>ClipForge</h3>
-          <span class="arrow">↗</span>
-        </div>
-        <p>An automated short-form video tool: feed it a long source video, and it detects the strongest moment, burns in word-timed captions, and renders a ready-to-post vertical clip. Built on Next.js with a serverless render pipeline instead of a persistent GPU box, so a real free tier can exist.</p>
-        <div class="tags">
-          <span class="tag">Next.js</span>
-          <span class="tag">TypeScript</span>
-          <span class="tag">Supabase</span>
-          <span class="tag">Serverless</span>
-        </div>
-      </a>
-
-    </div>
+  <section class="about-block">
+    <p class="section-label">About</p>
+    <p class="about">I've been writing code for about three years, mostly self-taught — the kind of learning that comes from building, breaking, and rebuilding things until they finally work. Most of my time goes into the web: front-end interfaces, small full-stack apps, and the occasional over-engineered side project I can't leave alone.</p>
+    <p class="about">Along the way I've worked with everything from plain JavaScript and the DOM up through full React and Next.js stacks, picking up whatever a project needs as I go. I care about the details — how a page feels, how fast it loads, how clean the code reading it is.</p>
   </section>
 
   <section>
@@ -257,7 +231,7 @@
 
   <section class="contact">
     <p class="section-label">Contact</p>
-    <p>Open to collaborating on web games and tooling. The fastest way to reach me is GitHub.</p>
+    <p>Open to collaborating on web projects. The fastest way to reach me is GitHub.</p>
     <div class="links">
       <a class="btn primary" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">github.com/ezzzzzz88</a>
       <a class="btn" href="mailto:samuelsimoni850@gmail.com">samuelsimoni850@gmail.com</a>
