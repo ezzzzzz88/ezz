@@ -3,23 +3,279 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>ezz</title>
+<title>ezzzzzz88</title>
+<meta name="description" content="Developer building games and tools for the web.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-  :root{ color-scheme: dark; }
-  html,body{ height:100%; margin:0; background:#000; }
-  body{ overflow:hidden; }
-  #sky{ display:block; width:100vw; height:100vh; background:#000; }
+  /* Single committed dark "deep space" theme. Starfield canvas is fixed behind
+     a scrolling content column; cards are faint glass panels over the stars. */
+  :root{
+    color-scheme: dark;
+    --void:    #05060a;
+    --panel:   rgba(255,255,255,0.045);
+    --panel-2: rgba(255,255,255,0.065);
+    --border:  rgba(255,255,255,0.10);
+    --text:    #eceef6;
+    --muted:   #8b90a6;
+    --accent:  #9db4ff;
+
+    --font-display: 'Syne', system-ui, sans-serif;
+    --font-body: 'Hanken Grotesk', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; }
+  body{
+    background: var(--void);
+    color: var(--text);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* fixed starfield behind everything */
+  #sky{
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background: radial-gradient(120% 90% at 50% 0%, #0a0c16 0%, #05060a 60%, #000 100%);
+    z-index: 0;
+  }
+
+  .wrap{
+    position: relative;
+    z-index: 1;
+    max-width: 760px;
+    margin: 0 auto;
+    padding-inline: 20px;
+    padding-block: clamp(72px, 16vh, 150px) 72px;
+  }
+
+  /* ---- hero ---- */
+  .hero{ margin-bottom: clamp(56px, 12vh, 110px); }
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+  }
+  h1{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 11vw, 4.6rem);
+    line-height: .98;
+    letter-spacing: -0.02em;
+    margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  .lede{
+    font-size: clamp(1.05rem, 3.4vw, 1.3rem);
+    color: var(--text);
+    max-width: 48ch;
+    margin: 0 0 14px;
+  }
+  .sub{
+    color: var(--muted);
+    max-width: 52ch;
+    margin: 0;
+  }
+
+  /* ---- section ---- */
+  .section-label{
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    letter-spacing: .24em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-label::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background: var(--border);
+  }
+
+  /* ---- project cards ---- */
+  .projects{ display: grid; gap: 16px; margin-bottom: clamp(56px, 11vh, 100px); }
+  .card{
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: transform .25s ease, background .25s ease, border-color .25s ease;
+  }
+  .card:hover, .card:focus-visible{
+    transform: translateY(-3px);
+    background: var(--panel-2);
+    border-color: rgba(157,180,255,0.35);
+    outline: none;
+  }
+  .card-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom: 10px;
+  }
+  .card h3{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1.35rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .card .arrow{ color: var(--accent); font-size: 1.1rem; transition: transform .25s ease; }
+  .card:hover .arrow{ transform: translate(3px,-3px); }
+  .card p{ margin: 0 0 16px; color: var(--muted); }
+  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tag{
+    font-family: var(--font-mono);
+    font-size: .72rem;
+    color: var(--text);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 4px 10px;
+  }
+
+  /* ---- stack ---- */
+  .stack-list{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: clamp(56px,11vh,100px); }
+  .stack-list .tag{ font-size:.78rem; padding:6px 12px; }
+
+  /* ---- contact / footer ---- */
+  .contact p{ color: var(--muted); max-width: 48ch; }
+  .links{ display:flex; flex-wrap:wrap; gap:14px; margin-top: 18px; }
+  .btn{
+    font-family: var(--font-mono);
+    font-size: .82rem;
+    text-decoration:none;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .btn:hover{ border-color: var(--accent); background: rgba(157,180,255,0.08); }
+  .btn.primary{ border-color: rgba(157,180,255,0.4); color: var(--accent); }
+
+  .foot{
+    margin-top: clamp(64px, 14vh, 120px);
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: .74rem;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  a.inline{ color: var(--accent); text-decoration: none; }
+  a.inline:hover{ text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce){
+    .card, .card .arrow{ transition: none; }
+  }
 </style>
 </head>
 <body>
-<canvas id="sky"></canvas>
+<canvas id="sky" aria-hidden="true"></canvas>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="eyebrow">ezzzzzz88 · web developer</p>
+    <h1>I build games and tools for the web.</h1>
+    <p class="lede">Self-taught developer working mostly in JavaScript and TypeScript — browser games, video tooling, and the occasional over-engineered side project.</p>
+    <p class="sub">Everything here is something I actually shipped, not a tutorial clone.</p>
+  </header>
+
+  <section>
+    <p class="section-label">Projects</p>
+    <div class="projects">
+
+      <a class="card" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">
+        <div class="card-top">
+          <h3>Arcade</h3>
+          <span class="arrow">↗</span>
+        </div>
+        <p>A browser games platform hosting two dozen original HTML5 games — arcade classics plus casino-style mini-games — served through a custom static build pipeline written in Node. Each game is self-contained Canvas/JS with shared tooling for thumbnails, config, and deployment.</p>
+        <div class="tags">
+          <span class="tag">JavaScript</span>
+          <span class="tag">Canvas</span>
+          <span class="tag">Node build</span>
+          <span class="tag">Vercel</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">
+        <div class="card-top">
+          <h3>ClipForge</h3>
+          <span class="arrow">↗</span>
+        </div>
+        <p>An automated short-form video tool: feed it a long source video, and it detects the strongest moment, burns in word-timed captions, and renders a ready-to-post vertical clip. Built on Next.js with a serverless render pipeline instead of a persistent GPU box, so a real free tier can exist.</p>
+        <div class="tags">
+          <span class="tag">Next.js</span>
+          <span class="tag">TypeScript</span>
+          <span class="tag">Supabase</span>
+          <span class="tag">Serverless</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section>
+    <p class="section-label">Stack</p>
+    <div class="stack-list">
+      <span class="tag">JavaScript</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Next.js</span>
+      <span class="tag">React</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">HTML Canvas</span>
+      <span class="tag">Supabase</span>
+      <span class="tag">Vercel</span>
+      <span class="tag">Git</span>
+    </div>
+  </section>
+
+  <section class="contact">
+    <p class="section-label">Contact</p>
+    <p>Open to collaborating on web games and tooling. The fastest way to reach me is GitHub.</p>
+    <div class="links">
+      <a class="btn primary" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">github.com/ezzzzzz88</a>
+      <a class="btn" href="mailto:samuelsimoni850@gmail.com">samuelsimoni850@gmail.com</a>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>ezz.is-a.dev</span>
+    <span>built with too many stars</span>
+  </footer>
+</main>
+
 <script>
 (function(){
   "use strict";
   var canvas = document.getElementById('sky');
   var ctx = canvas.getContext('2d');
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   var W, H, DPR, stars;
 
   function rand(a, b){ return a + Math.random() * (b - a); }
@@ -32,21 +288,20 @@
     canvas.height = Math.floor(H * DPR);
     ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
 
-    // density scales with screen area
-    var count = Math.round((W * H) / 5200);
+    var count = Math.round((W * H) / 6000);
     stars = [];
     for (var i = 0; i < count; i++){
-      var depth = Math.random();            // 0 = far, 1 = near
+      var depth = Math.random();
       stars.push({
         x: Math.random() * W,
         y: Math.random() * H,
-        r: 0.4 + depth * 1.6,               // nearer = bigger
-        vx: (-6 - depth * 16) * (reduced ? 0 : 1), // drift left, parallax by depth
-        vy: (depth * 2 - 1) * 1.5 * (reduced ? 0 : 1),
-        tw: rand(0, Math.PI * 2),           // twinkle phase
-        ts: rand(0.6, 2.2),                 // twinkle speed
-        base: 0.25 + depth * 0.6,           // base brightness
-        hue: Math.random() < 0.15 ? 210 : 0 // a few cool-blue stars
+        r: 0.4 + depth * 1.5,
+        vx: (-4 - depth * 11) * (reduced ? 0 : 1),
+        vy: (depth * 2 - 1) * 1.1 * (reduced ? 0 : 1),
+        tw: rand(0, Math.PI * 2),
+        ts: rand(0.5, 2.0),
+        base: 0.22 + depth * 0.55,
+        cool: Math.random() < 0.16
       });
     }
   }
@@ -55,40 +310,28 @@
   function frame(now){
     var dt = Math.min((now - last) / 1000, 0.05) || 0;
     last = now;
-
     ctx.clearRect(0, 0, W, H);
-    // faint vignette depth
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, W, H);
-
     for (var i = 0; i < stars.length; i++){
       var s = stars[i];
       if (!reduced){
-        s.x += s.vx * dt;
-        s.y += s.vy * dt;
-        s.tw += s.ts * dt;
-        // seamless wrap -> infinite loop
+        s.x += s.vx * dt; s.y += s.vy * dt; s.tw += s.ts * dt;
         if (s.x < -4){ s.x = W + 4; s.y = Math.random() * H; }
         if (s.x > W + 4){ s.x = -4; s.y = Math.random() * H; }
         if (s.y < -4){ s.y = H + 4; }
         if (s.y > H + 4){ s.y = -4; }
       }
-      var flick = reduced ? 1 : (0.65 + 0.35 * Math.sin(s.tw));
+      var flick = reduced ? 1 : (0.68 + 0.32 * Math.sin(s.tw));
       var a = Math.max(0, Math.min(1, s.base * flick));
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = s.hue
-        ? 'rgba(175,205,255,' + a + ')'
-        : 'rgba(255,255,255,' + a + ')';
+      ctx.fillStyle = s.cool ? 'rgba(175,200,255,' + a + ')' : 'rgba(255,255,255,' + a + ')';
       ctx.fill();
     }
-
     if (!reduced) requestAnimationFrame(frame);
   }
 
   build();
-  if (reduced){ frame(0); }           // one static render
-  else { requestAnimationFrame(frame); }
+  if (reduced){ frame(0); } else { requestAnimationFrame(frame); }
 
   var rt;
   window.addEventListener('resize', function(){
