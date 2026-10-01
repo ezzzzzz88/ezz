@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ezz</title>
+<style>
+  :root{ color-scheme: dark; }
+  html,body{ height:100%; margin:0; background:#000; }
+  body{ overflow:hidden; }
+  #sky{ display:block; width:100vw; height:100vh; background:#000; }
+</style>
+</head>
+<body>
+<canvas id="sky"></canvas>
+<script>
+(function(){
+  "use strict";
+  var canvas = document.getElementById('sky');
+  var ctx = canvas.getContext('2d');
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var W, H, DPR, stars;
+
+  function rand(a, b){ return a + Math.random() * (b - a); }
+
+  function build(){
+    DPR = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = Math.floor(W * DPR);
+    canvas.height = Math.floor(H * DPR);
+    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+
+    // density scales with screen area
+    var count = Math.round((W * H) / 5200);
+    stars = [];
+    for (var i = 0; i < count; i++){
+      var depth = Math.random();            // 0 = far, 1 = near
+      stars.push({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 0.4 + depth * 1.6,               // nearer = bigger
+        vx: (-6 - depth * 16) * (reduced ? 0 : 1), // drift left, parallax by depth
+        vy: (depth * 2 - 1) * 1.5 * (reduced ? 0 : 1),
+        tw: rand(0, Math.PI * 2),           // twinkle phase
+        ts: rand(0.6, 2.2),                 // twinkle speed
+        base: 0.25 + depth * 0.6,           // base brightness
+        hue: Math.random() < 0.15 ? 210 : 0 // a few cool-blue stars
+      });
+    }
+  }
+
+  var last = 0;
+  function frame(now){
+    var dt = Math.min((now - last) / 1000, 0.05) || 0;
+    last = now;
+
+    ctx.clearRect(0, 0, W, H);
+    // faint vignette depth
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, W, H);
+
+    for (var i = 0; i < stars.length; i++){
+      var s = stars[i];
+      if (!reduced){
+        s.x += s.vx * dt;
+        s.y += s.vy * dt;
+        s.tw += s.ts * dt;
+        // seamless wrap -> infinite loop
+        if (s.x < -4){ s.x = W + 4; s.y = Math.random() * H; }
+        if (s.x > W + 4){ s.x = -4; s.y = Math.random() * H; }
+        if (s.y < -4){ s.y = H + 4; }
+        if (s.y > H + 4){ s.y = -4; }
+      }
+      var flick = reduced ? 1 : (0.65 + 0.35 * Math.sin(s.tw));
+      var a = Math.max(0, Math.min(1, s.base * flick));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = s.hue
+        ? 'rgba(175,205,255,' + a + ')'
+        : 'rgba(255,255,255,' + a + ')';
+      ctx.fill();
+    }
+
+    if (!reduced) requestAnimationFrame(frame);
+  }
+
+  build();
+  if (reduced){ frame(0); }           // one static render
+  else { requestAnimationFrame(frame); }
+
+  var rt;
+  window.addEventListener('resize', function(){
+    clearTimeout(rt);
+    rt = setTimeout(function(){ build(); if (reduced) frame(0); }, 150);
+  });
+})();
+</script>
+</body>
+</html>
