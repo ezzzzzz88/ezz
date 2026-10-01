@@ -4,314 +4,92 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>ezzzzzz88</title>
-<meta name="description" content="Developer building games and tools for the web.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<meta name="description" content="ezzzzzz88 — web developer.">
 <style>
-  /* Single committed dark "deep space" theme. Starfield canvas is fixed behind
-     a scrolling content column; cards are faint glass panels over the stars. */
-  :root{
-    color-scheme: dark;
-    --void:    #05060a;
-    --panel:   rgba(255,255,255,0.045);
-    --panel-2: rgba(255,255,255,0.065);
-    --border:  rgba(255,255,255,0.10);
-    --text:    #eceef6;
-    --muted:   #8b90a6;
-    --accent:  #9db4ff;
-
-    --font-display: 'Syne', system-ui, sans-serif;
-    --font-body: 'Hanken Grotesk', system-ui, sans-serif;
-    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
-  }
-
+  :root{ color-scheme: dark; }
   *{ box-sizing:border-box; }
-  html,body{ margin:0; }
+  html,body{ height:100%; margin:0; }
   body{
-    background: var(--void);
-    color: var(--text);
-    font-family: var(--font-body);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
+    background:#05060a;
+    color:#e8e9ef;
+    font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
   }
-
-  /* fixed starfield behind everything */
-  #sky{
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    display: block;
-    background: radial-gradient(120% 90% at 50% 0%, #0a0c16 0%, #05060a 60%, #000 100%);
-    z-index: 0;
-  }
-
-  .wrap{
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-    margin: 0 auto;
-    padding-inline: 20px;
-    padding-block: clamp(72px, 16vh, 150px) 72px;
-  }
-
-  /* ---- hero ---- */
-  .hero{ margin-bottom: clamp(56px, 12vh, 110px); }
-  .eyebrow{
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    letter-spacing: .28em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin: 0 0 18px;
+  #sky{ position:fixed; inset:0; width:100vw; height:100vh; display:block; }
+  main{
+    position:relative;
+    z-index:1;
+    min-height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:24px;
+    max-width:520px;
+    margin:0 auto;
   }
   h1{
-    font-family: var(--font-display);
-    font-weight: 800;
-    font-size: clamp(2.6rem, 11vw, 4.6rem);
-    line-height: .98;
-    letter-spacing: -0.02em;
-    margin: 0 0 20px;
-    text-wrap: balance;
+    font-size: clamp(1.8rem, 7vw, 2.6rem);
+    font-weight:600;
+    letter-spacing:-0.02em;
+    margin:0 0 14px;
   }
-  .lede{
-    font-size: clamp(1.05rem, 3.4vw, 1.3rem);
-    color: var(--text);
-    max-width: 48ch;
-    margin: 0 0 14px;
-  }
-  .sub{
-    color: var(--muted);
-    max-width: 52ch;
-    margin: 0;
-  }
-
-  /* ---- section ---- */
-  .section-label{
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    letter-spacing: .24em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin: 0 0 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .section-label::after{
-    content:"";
-    flex:1;
-    height:1px;
-    background: var(--border);
-  }
-
-  /* ---- project cards ---- */
-  .projects{ display: grid; gap: 16px; margin-bottom: clamp(56px, 11vh, 100px); }
-  .card{
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    transition: transform .25s ease, background .25s ease, border-color .25s ease;
-  }
-  .card:hover, .card:focus-visible{
-    transform: translateY(-3px);
-    background: var(--panel-2);
-    border-color: rgba(157,180,255,0.35);
-    outline: none;
-  }
-  .card-top{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:12px;
-    margin-bottom: 10px;
-  }
-  .card h3{
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1.35rem;
-    margin: 0;
-    letter-spacing: -0.01em;
-  }
-  .card .arrow{ color: var(--accent); font-size: 1.1rem; transition: transform .25s ease; }
-  .card:hover .arrow{ transform: translate(3px,-3px); }
-  .card p{ margin: 0 0 16px; color: var(--muted); }
-  .tags{ display:flex; flex-wrap:wrap; gap:8px; }
-  .tag{
-    font-family: var(--font-mono);
-    font-size: .72rem;
-    color: var(--text);
-    background: rgba(255,255,255,0.05);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 4px 10px;
-  }
-
-  /* ---- stack ---- */
-  .stack-list{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom: clamp(56px,11vh,100px); }
-  .stack-list .tag{ font-size:.78rem; padding:6px 12px; }
-
-  /* ---- contact / footer ---- */
-  .about{ color: var(--muted); max-width: 60ch; margin: 0 0 16px; font-size: 1.02rem; }
-  .about:last-child{ margin-bottom: 0; }
-  .about-block{ margin-bottom: clamp(56px, 11vh, 100px); }
-  .contact p{ color: var(--muted); max-width: 48ch; }
-  .links{ display:flex; flex-wrap:wrap; gap:14px; margin-top: 18px; }
-  .btn{
-    font-family: var(--font-mono);
-    font-size: .82rem;
-    text-decoration:none;
-    color: var(--text);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 16px;
-    transition: border-color .2s ease, background .2s ease;
-  }
-  .btn:hover{ border-color: var(--accent); background: rgba(157,180,255,0.08); }
-  .btn.primary{ border-color: rgba(157,180,255,0.4); color: var(--accent); }
-
-  .foot{
-    margin-top: clamp(64px, 14vh, 120px);
-    padding-top: 22px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-family: var(--font-mono);
-    font-size: .74rem;
-    display:flex;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:8px;
-  }
-  a.inline{ color: var(--accent); text-decoration: none; }
-  a.inline:hover{ text-decoration: underline; }
-
-  @media (prefers-reduced-motion: reduce){
-    .card, .card .arrow{ transition: none; }
-  }
+  p{ margin:0 0 10px; color:#aeb2c4; line-height:1.6; }
+  .links{ margin-top:18px; display:flex; gap:20px; flex-wrap:wrap; }
+  a{ color:#9db4ff; text-decoration:none; }
+  a:hover{ text-decoration:underline; }
 </style>
 </head>
 <body>
 <canvas id="sky" aria-hidden="true"></canvas>
 
-<main class="wrap">
-  <header class="hero">
-    <p class="eyebrow">ezzzzzz88 · web developer</p>
-    <h1>I build things for the web.</h1>
-    <p class="lede">Self-taught developer. I've spent the last three years deep in the JavaScript ecosystem, building web apps and front-end interfaces.</p>
-    <p class="sub">Always building something — this is my corner of the web.</p>
-  </header>
-
-  <section class="about-block">
-    <p class="section-label">About</p>
-    <p class="about">I've been writing code for about three years, mostly self-taught — the kind of learning that comes from building, breaking, and rebuilding things until they finally work. Most of my time goes into the web: front-end interfaces, small full-stack apps, and the occasional over-engineered side project I can't leave alone.</p>
-    <p class="about">Along the way I've worked with everything from plain JavaScript and the DOM up through full React and Next.js stacks, picking up whatever a project needs as I go. I care about the details — how a page feels, how fast it loads, how clean the code reading it is.</p>
-  </section>
-
-  <section>
-    <p class="section-label">Stack</p>
-    <div class="stack-list">
-      <span class="tag">JavaScript</span>
-      <span class="tag">TypeScript</span>
-      <span class="tag">Next.js</span>
-      <span class="tag">React</span>
-      <span class="tag">Node.js</span>
-      <span class="tag">HTML Canvas</span>
-      <span class="tag">Supabase</span>
-      <span class="tag">Vercel</span>
-      <span class="tag">Git</span>
-    </div>
-  </section>
-
-  <section class="contact">
-    <p class="section-label">Contact</p>
-    <p>Open to collaborating on web projects. The fastest way to reach me is GitHub.</p>
-    <div class="links">
-      <a class="btn primary" href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">github.com/ezzzzzz88</a>
-      <a class="btn" href="mailto:samuelsimoni850@gmail.com">samuelsimoni850@gmail.com</a>
-    </div>
-  </section>
-
-  <footer class="foot">
-    <span>ezz.is-a.dev</span>
-    <span>built with too many stars</span>
-  </footer>
+<main>
+  <h1>ezzzzzz88</h1>
+  <p>Web developer. Three years in, mostly JavaScript and React.</p>
+  <p>Self-taught, still learning, always building something.</p>
+  <div class="links">
+    <a href="https://github.com/ezzzzzz88" target="_blank" rel="noopener">GitHub</a>
+    <a href="mailto:samuelsimoni850@gmail.com">Email</a>
+  </div>
 </main>
 
 <script>
 (function(){
   "use strict";
-  var canvas = document.getElementById('sky');
-  var ctx = canvas.getContext('2d');
+  var c = document.getElementById('sky'), ctx = c.getContext('2d');
   var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var W, H, DPR, stars;
-
-  function rand(a, b){ return a + Math.random() * (b - a); }
-
   function build(){
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    W = window.innerWidth;
-    H = window.innerHeight;
-    canvas.width = Math.floor(W * DPR);
-    canvas.height = Math.floor(H * DPR);
-    ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
-
-    var count = Math.round((W * H) / 6000);
+    W = innerWidth; H = innerHeight;
+    c.width = W*DPR; c.height = H*DPR;
+    ctx.setTransform(DPR,0,0,DPR,0,0);
     stars = [];
-    for (var i = 0; i < count; i++){
-      var depth = Math.random();
+    var n = Math.round((W*H)/6500);
+    for (var i=0;i<n;i++){
+      var d = Math.random();
       stars.push({
-        x: Math.random() * W,
-        y: Math.random() * H,
-        r: 0.4 + depth * 1.5,
-        vx: (-4 - depth * 11) * (reduced ? 0 : 1),
-        vy: (depth * 2 - 1) * 1.1 * (reduced ? 0 : 1),
-        tw: rand(0, Math.PI * 2),
-        ts: rand(0.5, 2.0),
-        base: 0.22 + depth * 0.55,
-        cool: Math.random() < 0.16
+        x:Math.random()*W, y:Math.random()*H,
+        r:0.4+d*1.4,
+        vx:(-4-d*10)*(reduced?0:1),
+        tw:Math.random()*6.28, ts:0.5+Math.random()*1.5,
+        base:0.2+d*0.55
       });
     }
   }
-
-  var last = 0;
+  var last=0;
   function frame(now){
-    var dt = Math.min((now - last) / 1000, 0.05) || 0;
-    last = now;
-    ctx.clearRect(0, 0, W, H);
-    for (var i = 0; i < stars.length; i++){
-      var s = stars[i];
-      if (!reduced){
-        s.x += s.vx * dt; s.y += s.vy * dt; s.tw += s.ts * dt;
-        if (s.x < -4){ s.x = W + 4; s.y = Math.random() * H; }
-        if (s.x > W + 4){ s.x = -4; s.y = Math.random() * H; }
-        if (s.y < -4){ s.y = H + 4; }
-        if (s.y > H + 4){ s.y = -4; }
-      }
-      var flick = reduced ? 1 : (0.68 + 0.32 * Math.sin(s.tw));
-      var a = Math.max(0, Math.min(1, s.base * flick));
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = s.cool ? 'rgba(175,200,255,' + a + ')' : 'rgba(255,255,255,' + a + ')';
-      ctx.fill();
+    var dt=Math.min((now-last)/1000,0.05)||0; last=now;
+    ctx.clearRect(0,0,W,H);
+    for (var i=0;i<stars.length;i++){
+      var s=stars[i];
+      if(!reduced){ s.x+=s.vx*dt; s.tw+=s.ts*dt; if(s.x<-4){s.x=W+4;s.y=Math.random()*H;} }
+      var a=s.base*(reduced?1:(0.68+0.32*Math.sin(s.tw)));
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,6.2832);
+      ctx.fillStyle='rgba(255,255,255,'+Math.max(0,a)+')'; ctx.fill();
     }
-    if (!reduced) requestAnimationFrame(frame);
+    if(!reduced) requestAnimationFrame(frame);
   }
-
-  build();
-  if (reduced){ frame(0); } else { requestAnimationFrame(frame); }
-
-  var rt;
-  window.addEventListener('resize', function(){
-    clearTimeout(rt);
-    rt = setTimeout(function(){ build(); if (reduced) frame(0); }, 150);
-  });
+  build(); reduced?frame(0):requestAnimationFrame(frame);
+  var rt; addEventListener('resize', function(){ clearTimeout(rt); rt=setTimeout(function(){build(); if(reduced)frame(0);},150); });
 })();
 </script>
 </body>
